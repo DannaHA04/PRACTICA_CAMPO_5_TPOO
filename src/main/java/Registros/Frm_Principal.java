@@ -168,9 +168,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tb_Informacion);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(300, 50, 452, 360);
+        jScrollPane1.setBounds(300, 50, 700, 390);
 
-        setSize(new java.awt.Dimension(788, 445));
+        setSize(new java.awt.Dimension(1030, 505));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,13 +205,14 @@ public class Frm_Principal extends javax.swing.JFrame {
             
             Object[] datofila = {perro1.getCodigo(),
                                  perro1.getNombre(),
+                                 perro1.getRaza(),
                                  perro1.getEdad(),
+                                 perro1.getPeso(),
+                                 perro1.getTamaño(),
+                                 perro1.getGenero(),
                                  perro1.getEstadoSalud(),
                                  perro1.getFechaIngreso(),
-                                 perro1.getGenero(),
-                                 perro1.getPeso(),
-                                 perro1.getRaza(),
-                                 perro1.getTamaño()};
+                                 perro1.calcularGastoTotal()};
             modelo.addRow(datofila);
         }
     }
