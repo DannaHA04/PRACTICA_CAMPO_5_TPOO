@@ -168,9 +168,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tb_Informacion);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(300, 50, 700, 390);
+        jScrollPane1.setBounds(300, 50, 790, 390);
 
-        setSize(new java.awt.Dimension(1030, 505));
+        setSize(new java.awt.Dimension(1116, 505));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,7 +201,10 @@ public class Frm_Principal extends javax.swing.JFrame {
         modelo.setRowCount(0);        
         ArrayList<Perro> lista = perros.obtenerPerros();
         
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         for(Perro perro1 : lista){
+            
+            String fechaFormateada = formatoFecha.format(perro1.getFechaIngreso());
             
             Object[] datofila = {perro1.getCodigo(),
                                  perro1.getNombre(),
@@ -211,7 +214,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                                  perro1.getTamaño(),
                                  perro1.getGenero(),
                                  perro1.getEstadoSalud(),
-                                 perro1.getFechaIngreso(),
+                                 fechaFormateada,
                                  perro1.calcularGastoTotal()};
             modelo.addRow(datofila);
         }
