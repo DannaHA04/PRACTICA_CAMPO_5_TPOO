@@ -1,6 +1,8 @@
 
 package Registros;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -55,6 +57,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         tb_Informacion = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(454, 6, 0, 0);
@@ -167,7 +170,8 @@ public class Frm_Principal extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(300, 50, 452, 360);
 
-        pack();
+        setSize(new java.awt.Dimension(788, 445));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
@@ -214,6 +218,51 @@ public class Frm_Principal extends javax.swing.JFrame {
     
     private void btn_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarActionPerformed
         
+        //USO DE MANEJO DE ERRORES
+        
+        if (txt_Codigo.getText().isEmpty() || txt_Nombre.getText().isEmpty()
+                || txt_Raza.getText().isEmpty() || txt_Edad.getText().isEmpty()
+                || txt_Peso.getText().isEmpty() || txt_FechaIngreso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
+        try {
+            // Capturar los datos desde los campos
+            String codigo = txt_Codigo.getText();
+            String nombre = txt_Nombre.getText();
+            String raza = txt_Raza.getText();
+            int edad = Integer.parseInt(txt_Edad.getText());
+            double peso = Double.parseDouble(txt_Peso.getText());
+            String tamaño = cmb_Tamaño.getSelectedItem().toString();
+            String genero = cbm_Genero.getSelectedItem().toString();
+            String estadoSalud = cmb_EstadoSalud.getSelectedItem().toString();
+
+            // Convertir la fecha desde String a Date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaIngreso = dateFormat.parse(txt_FechaIngreso.getText());
+            
+            // Crear el objeto Perro usando el constructor con parámetros
+            Perro objetoPerro = new Perro(codigo, nombre, raza, edad, peso, tamaño, genero, estadoSalud, fechaIngreso);
+
+            // Agregar el perro a la lista
+            perros.agregarPerro(objetoPerro);
+
+            // Actualizar la tabla
+            ActualizaTabla();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Perro registrado correctamente.");
+
+            // Limpiar los campos
+            btn_LimpiarActionPerformed(evt);
+
+        } catch (NumberFormatException ex) {
+            // Manejar errores de formato de número (edad y peso)
+            JOptionPane.showMessageDialog(this, "Edad y Peso deben ser números válidos.");
+        } catch (Exception ex) {
+            // Manejar cualquier otro error
+            JOptionPane.showMessageDialog(this, "Error al registrar: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btn_AgregarActionPerformed
 
     /**
